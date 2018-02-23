@@ -1,32 +1,51 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Capstone.Controllers
 {
     public class HomeController : Controller
     {
+        static private List<string> Infos = new List<string>();
+
         public IActionResult Index()
         {
-            return View(); //Content("<h1>Bill & Mike Law Firm</h1>", "text/html");
+            return View();
         }
         [Route("/About")]
         public IActionResult About()
         {
-            return View(); //Content("<h1>This is Bill, This is Mike</h1>", "text/html");
+            return View();
         }
         [Route("/Contact")]
         public IActionResult Contact()
         {
-            return View(); // Content("<h1>This is where Bill and Mikes office is located</h1>", "text/html");
+            return View(); 
         }
         [Route("/ClientInfo")]
         public IActionResult ClientInfo()
         {
-            return View();  //Content("<h1>Helpful information for clients</h1>", "text/html");
+            ViewBag.Infos = Infos;
+            return View(); 
         }
+        
+        [Route("/Info/Add")]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/Info/Add")]
+        public IActionResult NewArticle(string name)
+        {
+            Infos.Add(name);
+            return Redirect("/ClientInfo");
+        }
+
         [Route("/PublicInfo")]
         public IActionResult PublicInfo()
         {
-            return View();  //Content("<h1>Headings</h1>", "text/html");
+            return View(); 
         }
     }
 }
